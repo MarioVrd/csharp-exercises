@@ -4,9 +4,6 @@ namespace Task1
 {
     class Program
     {
-		/// <summary>
-		/// The main entry point for the application.
-		/// </summary>
 		[STAThread]
 		static void Main(string[] args)
 		{
@@ -21,6 +18,7 @@ namespace Task1
 			Console.WriteLine("You are in main menu - choose action:");
 			Console.WriteLine("1 - Insert new circle");
 			Console.WriteLine("2 - Insert new square");
+			Console.WriteLine("3 - Insert new triangle");
 			Console.WriteLine("4 - Print total area of all inserted elements");
 			Console.WriteLine("5 - Print total perimeter of all inserted elements");
 			Console.WriteLine("6 - Print properties of all inserted elements");
@@ -44,6 +42,10 @@ namespace Task1
 				else if (s == "2")
 				{
 					doSubMenuSquare();
+				}
+				else if (s == "3")
+				{
+					doSubMenuTriangle();
 				}
 				else if (s == "4")
 				{
@@ -156,6 +158,54 @@ namespace Task1
 					{
 						Console.WriteLine("Value for the side of square is not correct!");
 						Console.Write("Side of square=");
+					}
+				}
+
+
+			}
+
+		}
+
+		private static void doSubMenuTriangle()
+		{
+			Console.WriteLine("You are in sub menu for triangle - insert the value for the side of triangle:");
+			Console.Write("Side of triangle=");
+			string input;
+			while (true)
+			{
+				input = Console.ReadLine();
+				if (input.Trim() != "")
+				{
+					try
+					{
+						double a = System.Convert.ToDouble(input);
+						Triangle myTriangle = new Triangle(a);
+						DataModel.getAllElementsList().Add(myTriangle);
+						Console.WriteLine("New triangle inserted!");
+						Console.Write("Do you want to insert one more triangle? (y/n)");
+
+						string s;
+						while (true)
+						{
+							s = Console.ReadLine().Trim();
+							if (s == "y")
+							{
+								Console.Write("Side of triangle=");
+								break;
+							}
+							else if (s == "n")
+							{
+								Console.WriteLine();
+								printMainMenu();
+								return;
+							}
+						}
+
+					}
+					catch
+					{
+						Console.WriteLine("Value for the side of triangle is not correct!");
+						Console.Write("Side of triangle=");
 					}
 				}
 
