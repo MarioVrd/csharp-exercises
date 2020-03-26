@@ -37,6 +37,19 @@ namespace Task1
 			}
 		}
 
+		public delegate void CircleAddedHandler(string s);
+		public event CircleAddedHandler CircleAdded;
+
+		public void addNewShape(Shape shape)
+		{
+			ALL_ELEMENTS.Add(shape);
+
+			if (shape is Circle && CircleAdded != null)
+			{
+				CircleAdded($"xPos: {shape.getXPos()}, yPos: {shape.getYPos()}");
+			}
+		}
+
 		public static ArrayList getAllElementsList()
 		{
 			return ALL_ELEMENTS;

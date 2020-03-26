@@ -8,9 +8,17 @@ namespace Task1
 		static void Main(string[] args)
 		{
 			DataModel dm = new DataModel();
+
+			dm.CircleAdded += OnCircleAdded;
+
 			Console.WriteLine("Program started");
 			Console.WriteLine();
-			doMainMenu();
+			doMainMenu(dm);
+		}
+
+		private static void OnCircleAdded(String s)
+		{
+			Console.WriteLine(s);
 		}
 
 		private static void printMainMenu()
@@ -26,7 +34,7 @@ namespace Task1
 			Console.Write("Action:");
 
 		}
-		private static void doMainMenu()
+		private static void doMainMenu(DataModel dm)
 		{
 			printMainMenu();
 
@@ -37,15 +45,15 @@ namespace Task1
 
 				if (s == "1")
 				{
-					doSubMenuCircle();
+					doSubMenuCircle(dm);
 				}
 				else if (s == "2")
 				{
-					doSubMenuSquare();
+					doSubMenuSquare(dm);
 				}
 				else if (s == "3")
 				{
-					doSubMenuTriangle();
+					doSubMenuTriangle(dm);
 				}
 				else if (s == "4")
 				{
@@ -71,7 +79,7 @@ namespace Task1
 			}
 		}
 
-		private static void doSubMenuCircle()
+		private static void doSubMenuCircle(DataModel dm)
 		{
 			Console.WriteLine("You are in sub menu for circle - insert the value of radius:");
 			Console.Write("Radius=");
@@ -85,7 +93,7 @@ namespace Task1
 					{
 						double r = System.Convert.ToDouble(input);
 						Circle myCircle = new Circle(r);
-						DataModel.getAllElementsList().Add(myCircle);
+						dm.addNewShape(myCircle);
 						Console.WriteLine("New circle inserted!");
 						Console.Write("Do you want to insert one more circle? (y/n)");
 
@@ -118,7 +126,7 @@ namespace Task1
 			}
 		}
 
-		private static void doSubMenuSquare()
+		private static void doSubMenuSquare(DataModel dm)
 		{
 			Console.WriteLine("You are in sub menu for square - insert the value for the side of square:");
 			Console.Write("Side of square=");
@@ -166,7 +174,7 @@ namespace Task1
 
 		}
 
-		private static void doSubMenuTriangle()
+		private static void doSubMenuTriangle(DataModel dm)
 		{
 			Console.WriteLine("You are in sub menu for triangle - insert the value for the side of triangle:");
 			Console.Write("Side of triangle=");
