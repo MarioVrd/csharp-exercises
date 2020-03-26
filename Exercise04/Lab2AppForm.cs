@@ -127,6 +127,11 @@ namespace Labs
 			Application.Run(new Lab2AppForm());
 		}
 
+		private void updateTotalLabel()
+		{
+			this.label2.Text = $"Total area={DataModel.getTotalArea()}, Total perimeter={DataModel.getTotalPerimeter()}";
+		}
+
 		private void button1_Click(object sender, System.EventArgs e)
 		{			
 			AddShapeForm asf=new AddShapeForm();
@@ -134,7 +139,32 @@ namespace Labs
 
 			if (asf.DialogResult == DialogResult.OK)
 			{
-				//to do
+				int shapeType = asf.getSelectedType();
+				double value = asf.getTextBoxInput();
+
+				switch (shapeType)
+				{
+					case 1:
+						Circle newCircle = new Circle(value);
+						DataModel.getAllElementsList().Add(newCircle);
+						this.listBox1.Items.Add(newCircle.ToString());
+						break;
+					case 2:
+						Square newSquare = new Square(value);
+						DataModel.getAllElementsList().Add(newSquare);
+						this.listBox1.Items.Add(newSquare.ToString());
+						break;
+					case 3:
+						Triangle newTriangle = new Triangle(value);
+						DataModel.getAllElementsList().Add(newTriangle);
+						this.listBox1.Items.Add(newTriangle.ToString());
+						break;
+					default:
+						break;
+				}
+
+				updateTotalLabel();
+
 				asf.Dispose();
 			}
 

@@ -141,6 +141,7 @@ namespace Labs
 			this.textBox1.Size = new System.Drawing.Size(136, 22);
 			this.textBox1.TabIndex = 5;
 			this.textBox1.Text = "";
+			this.textBox1.TextChanged += new System.EventHandler(this.textBox1_ValueChanged);
 			
 			// 
 			// AddShapeForm
@@ -165,8 +166,48 @@ namespace Labs
 			this.ResumeLayout(false);
 
 		}
+
 		#endregion
-		
+
+		private void textBox1_ValueChanged(object sender, EventArgs e)
+		{
+			bool isDouble = double.TryParse(textBox1.Text, out double value);
+
+			if (isDouble && value > 0)
+			{
+				okButton.Enabled = true;
+			}
+			else
+			{
+				okButton.Enabled = false;
+			}
+		}
+
+		// This function returns 1 for Circle, 2 for Square, 3 for Triangle
+		public int getSelectedType()
+		{
+			if (radioButton1.Checked)
+			{
+				return 1;
+			}
+			else if (radioButton2.Checked)
+			{
+				return 2;
+			}
+			else if (radioButton3.Checked)
+			{
+				return 3;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+
+		public double getTextBoxInput()
+		{
+			return double.Parse(textBox1.Text);
+		}
 
 		private void radioButton_CheckedChanged(object sender, System.EventArgs e)
 		{
