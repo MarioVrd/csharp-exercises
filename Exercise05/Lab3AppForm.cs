@@ -106,19 +106,22 @@ namespace Labs
 			// 
 			this.menuItem2.Index = 0;
 			this.menuItem2.Text = "Circle";
-			
+			this.menuItem2.Click += new System.EventHandler(this.insertCircle_Click);
+
 			// 
 			// menuItem3
 			// 
 			this.menuItem3.Index = 1;
 			this.menuItem3.Text = "Square";
-			
+			this.menuItem3.Click += new System.EventHandler(this.insertSquare_Click);
+
 			// 
 			// menuItem4
 			// 
 			this.menuItem4.Index = 2;
 			this.menuItem4.Text = "Triangle";
-			
+			this.menuItem4.Click += new System.EventHandler(this.insertTriangle_Click);
+
 			// 
 			// label1
 			// 
@@ -238,6 +241,8 @@ namespace Labs
 					TreeNode tn = new TreeNode();
 					tn.Text=circle.ToString();
 					tn.Tag=circle;
+					// Nodes[0] - Shape
+					// Nodes[0].Nodes[0] - Circle
 					treeView1.Nodes[0].Nodes[0].Nodes.Add(tn);									
 
 				}				
@@ -249,12 +254,52 @@ namespace Labs
 
 		private void insertSquare_Click(object sender, System.EventArgs e)
 		{
-			//to do
+			AddShapeForm asf = new AddShapeForm(2);
+			asf.ShowDialog(this);
+
+			if (asf.DialogResult == DialogResult.OK)
+			{
+				if (asf.getSelectedType() == 2)
+				{
+					Square square = new Square(asf.getTextBoxInput());
+					DataModel.getAllElementsList().Add(square);
+					TreeNode tn = new TreeNode();
+					tn.Text = square.ToString();
+					tn.Tag = square;
+					// Nodes[0] - Shape
+					// Nodes[0].Nodes[1] - Square
+					treeView1.Nodes[0].Nodes[1].Nodes.Add(tn);
+
+				}
+
+				label1.Text = "Total area=" + DataModel.getTotalArea() + ", Total perimeter=" + DataModel.getTotalPerimeter();
+				asf.Dispose();
+			}
 		}
 
 		private void insertTriangle_Click(object sender, System.EventArgs e)
 		{
-			//to do			
+			AddShapeForm asf = new AddShapeForm(3);
+			asf.ShowDialog(this);
+
+			if (asf.DialogResult == DialogResult.OK)
+			{
+				if (asf.getSelectedType() == 3)
+				{
+					Triangle triangle = new Triangle(asf.getTextBoxInput());
+					DataModel.getAllElementsList().Add(triangle);
+					TreeNode tn = new TreeNode();
+					tn.Text = triangle.ToString();
+					tn.Tag = triangle;
+					// Nodes[0] - Shape
+					// Nodes[0].Nodes[2] - Triangle
+					treeView1.Nodes[0].Nodes[2].Nodes.Add(tn);
+
+				}
+
+				label1.Text = "Total area=" + DataModel.getTotalArea() + ", Total perimeter=" + DataModel.getTotalPerimeter();
+				asf.Dispose();
+			}
 		}
 
 		private void showCircleData_Click(object sender, System.EventArgs e)
@@ -276,12 +321,36 @@ namespace Labs
 
 		private void showSquareData_Click(object sender, System.EventArgs e)
 		{
-			//to do			
+			TreeNode tn = treeView1.SelectedNode;
+			Square square = (Square)tn.Tag;
+			string message = "";
+			message += "Side=" + square.getSide();
+			message += "\nX pos=" + square.getXPos();
+			message += "\nY pos=" + square.getYPos();
+
+			string caption = "Square properties";
+			MessageBoxButtons buttons = MessageBoxButtons.OK;
+
+			MessageBox.Show(this, message, caption, buttons,
+				MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+
 		}
 
 		private void showTriangleData_Click(object sender, System.EventArgs e)
 		{
-			//to do
+			TreeNode tn = treeView1.SelectedNode;
+			Triangle triangle = (Triangle)tn.Tag;
+			string message = "";
+			message += "Side=" + triangle.getSide();
+			message += "\nX pos=" + triangle.getXPos();
+			message += "\nY pos=" + triangle.getYPos();
+
+			string caption = "Triangle properties";
+			MessageBoxButtons buttons = MessageBoxButtons.OK;
+
+			MessageBox.Show(this, message, caption, buttons,
+				MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+
 		}
 
 		private void menuItem6_Click(object sender, System.EventArgs e)
