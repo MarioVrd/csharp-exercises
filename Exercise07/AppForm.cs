@@ -36,7 +36,9 @@ namespace Labs
 
 			PersonDataModel pdm=new PersonDataModel();
 
-			
+			SummaryForm summaryForm = new SummaryForm();
+			summaryForm.Show(this);
+			summaryForm.Location = new Point(800, 350);
 		}
 
 		/// <summary>

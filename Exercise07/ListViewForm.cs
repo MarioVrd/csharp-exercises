@@ -27,7 +27,7 @@ namespace Labs
 			//
 			InitializeComponent();
 
-			PersonDataModel.getDataModel().PersonModelChanged+=new PersonModelChangedEventHandler(this.consumeChangeInPersonDataModel);
+			PersonDataModel.getDataModel().PersonModelChanged += new PersonModelChangedEventHandler(this.consumeChangeInPersonDataModel);
 		}
 
 		/// <summary>
@@ -52,50 +52,52 @@ namespace Labs
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this._listView1 = new System.Windows.Forms.ListView();
-			this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-			this._contextMenu1 = new System.Windows.Forms.ContextMenu();
-			this.SuspendLayout();
-			// 
-			// _listView1
-			// 
-			this._listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-																						 this.columnHeader1,
-																						 this.columnHeader2});
-			this._listView1.ContextMenu = this._contextMenu1;
-			this._listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this._listView1.FullRowSelect = true;
-			this._listView1.GridLines = true;
-			this._listView1.Location = new System.Drawing.Point(0, 0);
-			this._listView1.Name = "_listView1";
-			this._listView1.Size = new System.Drawing.Size(280, 268);
-			this._listView1.TabIndex = 0;
-			this._listView1.View = System.Windows.Forms.View.Details;
-			// 
-			// columnHeader1
-			// 
-			this.columnHeader1.Text = "Name";
-			this.columnHeader1.Width = 136;
-			// 
-			// columnHeader2
-			// 
-			this.columnHeader2.Text = "Last Name";
-			this.columnHeader2.Width = 140;
-			// 
-			// _contextMenu1
-			// 
-			this._contextMenu1.Popup += new System.EventHandler(this.contextMenu1_Popup);
-			// 
-			// ListViewForm
-			// 
-			this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
-			this.ClientSize = new System.Drawing.Size(280, 268);
-			this.Controls.Add(this._listView1);
-			this.Name = "ListViewForm";
-			this.Text = "List View";
-			this.Load += new System.EventHandler(this.ListViewForm_Load);
-			this.ResumeLayout(false);
+            this._listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this._contextMenu1 = new System.Windows.Forms.ContextMenu();
+            this.SuspendLayout();
+            // 
+            // _listView1
+            // 
+            this._listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this._listView1.ContextMenu = this._contextMenu1;
+            this._listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._listView1.FullRowSelect = true;
+            this._listView1.GridLines = true;
+            this._listView1.HideSelection = false;
+            this._listView1.Location = new System.Drawing.Point(0, 0);
+            this._listView1.Name = "_listView1";
+            this._listView1.Size = new System.Drawing.Size(280, 268);
+            this._listView1.TabIndex = 0;
+            this._listView1.UseCompatibleStateImageBehavior = false;
+            this._listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Name";
+            this.columnHeader1.Width = 136;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Last Name";
+            this.columnHeader2.Width = 140;
+            // 
+            // _contextMenu1
+            // 
+            this._contextMenu1.Popup += new System.EventHandler(this.contextMenu1_Popup);
+            // 
+            // ListViewForm
+            // 
+            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.ClientSize = new System.Drawing.Size(280, 268);
+            this.Controls.Add(this._listView1);
+            this.Name = "ListViewForm";
+            this.Text = "List View";
+            this.Load += new System.EventHandler(this.ListViewForm_Load);
+            this.ResumeLayout(false);
 
 		}
 		#endregion

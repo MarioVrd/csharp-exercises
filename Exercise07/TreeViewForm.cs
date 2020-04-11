@@ -53,37 +53,40 @@ namespace Labs
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
-			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(TreeViewForm));
-			this._treeView1 = new System.Windows.Forms.TreeView();
-			this._imageList1 = new System.Windows.Forms.ImageList(this.components);
-			this.SuspendLayout();
-			// 
-			// _treeView1
-			// 
-			this._treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this._treeView1.ImageList = this._imageList1;
-			this._treeView1.Location = new System.Drawing.Point(0, 0);
-			this._treeView1.Name = "_treeView1";
-			this._treeView1.Size = new System.Drawing.Size(280, 268);
-			this._treeView1.Sorted = true;
-			this._treeView1.TabIndex = 0;
-			// 
-			// _imageList1
-			// 
-			this._imageList1.ImageSize = new System.Drawing.Size(16, 16);
-			this._imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("_imageList1.ImageStream")));
-			this._imageList1.TransparentColor = System.Drawing.Color.Transparent;
-			// 
-			// TreeViewForm
-			// 
-			this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
-			this.ClientSize = new System.Drawing.Size(280, 268);
-			this.Controls.Add(this._treeView1);
-			this.Name = "TreeViewForm";
-			this.Text = "Tree View";
-			this.Load += new System.EventHandler(this.TreeViewForm_Load);
-			this.ResumeLayout(false);
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TreeViewForm));
+            this._treeView1 = new System.Windows.Forms.TreeView();
+            this._imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.SuspendLayout();
+            // 
+            // _treeView1
+            // 
+            this._treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._treeView1.ImageIndex = 0;
+            this._treeView1.ImageList = this._imageList1;
+            this._treeView1.Location = new System.Drawing.Point(0, 0);
+            this._treeView1.Name = "_treeView1";
+            this._treeView1.SelectedImageIndex = 0;
+            this._treeView1.Size = new System.Drawing.Size(280, 268);
+            this._treeView1.Sorted = true;
+            this._treeView1.TabIndex = 0;
+            // 
+            // _imageList1
+            // 
+            this._imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("_imageList1.ImageStream")));
+            this._imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this._imageList1.Images.SetKeyName(0, "");
+            this._imageList1.Images.SetKeyName(1, "");
+            // 
+            // TreeViewForm
+            // 
+            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.ClientSize = new System.Drawing.Size(280, 268);
+            this.Controls.Add(this._treeView1);
+            this.Name = "TreeViewForm";
+            this.Text = "Tree View";
+            this.Load += new System.EventHandler(this.TreeViewForm_Load);
+            this.ResumeLayout(false);
 
 		}
 		#endregion

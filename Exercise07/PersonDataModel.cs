@@ -32,28 +32,28 @@ namespace Labs
 		public void addNewPerson(Person newPerson)
 		{
 			ALL_PERSONS.Add(newPerson);
-			PersonDataModelChangedEventArgs e= new PersonDataModelChangedEventArgs(newPerson, true,false);
+			PersonDataModelChangedEventArgs e = new PersonDataModelChangedEventArgs(newPerson, true,false);
 			OnPersonModelChanged(e);			
 		}
 
 		public void removeFromModel(Person p)
 		{
 			ALL_PERSONS.Remove(p);
-			PersonDataModelChangedEventArgs e= new PersonDataModelChangedEventArgs(p, false,true);
+			PersonDataModelChangedEventArgs e = new PersonDataModelChangedEventArgs(p, false,true);
 			OnPersonModelChanged(e);
 		}
 		
 	
 		private void OnPersonModelChanged(PersonDataModelChangedEventArgs e)
 		{
-			if(PersonModelChanged!=null)
+			if (PersonModelChanged != null)
 			{
-				PersonModelChanged(this,e);
+				PersonModelChanged(this, e);
 			}
 		}
 	}
 
-	public class PersonDataModelChangedEventArgs:EventArgs
+	public class PersonDataModelChangedEventArgs : EventArgs
 	{
 		private Person _person;
 		private bool _isAdded;
