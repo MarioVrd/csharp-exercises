@@ -7,54 +7,54 @@ using System.Data;
 
 namespace Labs
 {
-	/// <summary>
-	/// Summary description for Form1.
-	/// </summary>
-	public class AppForm : System.Windows.Forms.Form
-	{		
-		private System.Windows.Forms.ListView listView1;
-		private System.Windows.Forms.ColumnHeader columnHeader1;
-		private System.Windows.Forms.ColumnHeader columnHeader2;
-		private System.Windows.Forms.MainMenu mainMenu1;
-		private System.Windows.Forms.MenuItem menuItem1;
-		private System.Windows.Forms.ContextMenu contextMenu1;
+    /// <summary>
+    /// Summary description for Form1.
+    /// </summary>
+    public class AppForm : System.Windows.Forms.Form
+    {
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.MainMenu mainMenu1;
+        private System.Windows.Forms.MenuItem menuItem1;
+        private System.Windows.Forms.ContextMenu contextMenu1;
         private System.Windows.Forms.Panel panel1;
         private IContainer components;
 
-		public AppForm()
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
+        public AppForm()
+        {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
 
-			//
-			// TODO: Add any constructor code after InitializeComponent call
-			//
-		}
+            //
+            // TODO: Add any constructor code after InitializeComponent call
+            //
+        }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if (components != null) 
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -67,6 +67,7 @@ namespace Labs
             // 
             // listView1
             // 
+            this.listView1.AllowDrop = true;
             this.listView1.BackColor = System.Drawing.SystemColors.Window;
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
@@ -75,6 +76,7 @@ namespace Labs
             this.listView1.Dock = System.Windows.Forms.DockStyle.Left;
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
+            this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
@@ -84,6 +86,8 @@ namespace Labs
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.listView1_ItemDrag);
+            this.listView1.DragDrop += new System.Windows.Forms.DragEventHandler(this.listView1_DragDrop);
+            this.listView1.DragEnter += new System.Windows.Forms.DragEventHandler(this.listView1_DragEnter);
             this.listView1.DoubleClick += new System.EventHandler(this.ShowPersonData_Click);
             // 
             // columnHeader1
@@ -135,108 +139,125 @@ namespace Labs
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
 
-		}
-		#endregion
+        }
+        #endregion
 
-		/// <summary>
-		/// The main entry point for the application.
-		/// </summary>
-		[STAThread]
-		static void Main() 
-		{
-			Application.Run(new AppForm());
-		}
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            Application.Run(new AppForm());
+        }
 
-		private void menuItem1_Click(object sender, System.EventArgs e)
-		{
-			PersonPropertiesForm ppf=new PersonPropertiesForm();
-			ppf.ShowDialog(this);
-			if(ppf.DialogResult==DialogResult.OK)
-			{
-				try
-				{
-					string name=ppf.getNameTextBoxText();
-					string lastName=ppf.getLastNameTextBoxText();
-					int age=System.Convert.ToInt32(ppf.getAgeTextBoxText());
-					string city=ppf.getCityComboBoxText();
-					Person p=new Person(name,lastName,age,city);
+        private void menuItem1_Click(object sender, System.EventArgs e)
+        {
+            PersonPropertiesForm ppf = new PersonPropertiesForm();
+            ppf.ShowDialog(this);
+            if (ppf.DialogResult == DialogResult.OK)
+            {
+                try
+                {
+                    string name = ppf.getNameTextBoxText();
+                    string lastName = ppf.getLastNameTextBoxText();
+                    int age = System.Convert.ToInt32(ppf.getAgeTextBoxText());
+                    string city = ppf.getCityComboBoxText();
+                    Person p = new Person(name, lastName, age, city);
 
-					string[] str=new string[2]{name,lastName};
-					ListViewItem lvi=new ListViewItem(str);
-					lvi.Tag=p;
-					listView1.Items.Add(lvi);
+                    string[] str = new string[2] { name, lastName };
+                    ListViewItem lvi = new ListViewItem(str);
+                    lvi.Tag = p;
+                    listView1.Items.Add(lvi);
 
-					///
-					MyLabel label=new MyLabel(p.Index);					
-					panel1.Controls.Add(label);
+                    ///
+                    MyLabel label = new MyLabel(p.Index);
+                    panel1.Controls.Add(label);
 
 
-				}
-				catch
-				{
-					
-				}
+                }
+                catch
+                {
 
-			}
-			ppf.Dispose();
-		
-		}
+                }
 
-		private void contextMenu1_Popup(object sender, System.EventArgs e)
-		{
-			if(listView1.SelectedItems.Count>0)
-			{
-				contextMenu1.MenuItems.Clear();
+            }
+            ppf.Dispose();
 
-				MenuItem menuItem1 = new MenuItem("Show Person data");
-				menuItem1.Click += new System.EventHandler(this.ShowPersonData_Click);
-				contextMenu1.MenuItems.Add(menuItem1);				
+        }
 
-			}
-		}
+        private void contextMenu1_Popup(object sender, System.EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                contextMenu1.MenuItems.Clear();
 
-		private void ShowPersonData_Click(object sender, System.EventArgs e)
-		{
-			if(listView1.SelectedItems.Count>0)
-			{
-				ListViewItem lvi=listView1.SelectedItems[0];
-				Person p=(Person)lvi.Tag;
+                MenuItem menuItem1 = new MenuItem("Show Person data");
+                menuItem1.Click += new System.EventHandler(this.ShowPersonData_Click);
+                contextMenu1.MenuItems.Add(menuItem1);
 
-				PersonPropertiesForm ppf=new PersonPropertiesForm(p);
-				ppf.ShowDialog(this);
-				if(ppf.DialogResult==DialogResult.OK)
-				{
-					try
-					{
-						p.Name=ppf.getNameTextBoxText();
-						p.LastName=ppf.getLastNameTextBoxText();
-						p.Age=System.Convert.ToInt32(ppf.getAgeTextBoxText());
-						p.City=ppf.getCityComboBoxText();
-					
-						lvi.SubItems[0].Text=p.Name;
-						lvi.SubItems[1].Text=p.LastName;
-					}
-					catch
-					{
-					
-					}
+            }
+        }
 
-				}
-				ppf.Dispose();
-			}
+        private void ShowPersonData_Click(object sender, System.EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                ListViewItem lvi = listView1.SelectedItems[0];
+                Person p = (Person)lvi.Tag;
 
-		}
+                PersonPropertiesForm ppf = new PersonPropertiesForm(p);
+                ppf.ShowDialog(this);
+                if (ppf.DialogResult == DialogResult.OK)
+                {
+                    try
+                    {
+                        p.Name = ppf.getNameTextBoxText();
+                        p.LastName = ppf.getLastNameTextBoxText();
+                        p.Age = System.Convert.ToInt32(ppf.getAgeTextBoxText());
+                        p.City = ppf.getCityComboBoxText();
 
-		private void listView1_ItemDrag(object sender, System.Windows.Forms.ItemDragEventArgs e)
-		{
-			
-			ListViewItem dragedLvi = (ListViewItem)e.Item;
-															
-			if(DragDropEffects.Move==listView1.DoDragDrop(dragedLvi,DragDropEffects.Move)) 
-			{
-				listView1.Items.Remove(dragedLvi);
-			}
-		}		
+                        lvi.SubItems[0].Text = p.Name;
+                        lvi.SubItems[1].Text = p.LastName;
+                    }
+                    catch
+                    {
 
-	}
+                    }
+
+                }
+                ppf.Dispose();
+            }
+
+        }
+
+        private void listView1_ItemDrag(object sender, System.Windows.Forms.ItemDragEventArgs e)
+        {
+
+            ListViewItem dragedLvi = (ListViewItem)e.Item;
+
+            if (DragDropEffects.Move == listView1.DoDragDrop(dragedLvi, DragDropEffects.Move))
+            {
+                listView1.Items.Remove(dragedLvi);
+            }
+        }
+
+        private void listView1_DragEnter(object sender, DragEventArgs e)
+        {
+            ListViewItem lvi = (ListViewItem)e.Data.GetData(DataFormats.Serializable);
+
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void listView1_DragDrop(object sender, DragEventArgs e)
+        {
+            ListViewItem item = (ListViewItem)e.Data.GetData(DataFormats.Serializable);
+
+            Person person = (Person)item.Tag;
+
+            listView1.Items.Add(item);
+
+        }
+
+    }
 }
