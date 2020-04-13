@@ -195,7 +195,6 @@ namespace Labs
                 MenuItem menuItem1 = new MenuItem("Show Person data");
                 menuItem1.Click += new System.EventHandler(this.ShowPersonData_Click);
                 contextMenu1.MenuItems.Add(menuItem1);
-
             }
         }
 
@@ -233,7 +232,6 @@ namespace Labs
 
         private void listView1_ItemDrag(object sender, System.Windows.Forms.ItemDragEventArgs e)
         {
-
             ListViewItem dragedLvi = (ListViewItem)e.Item;
 
             if (DragDropEffects.Move == listView1.DoDragDrop(dragedLvi, DragDropEffects.Move))
@@ -246,7 +244,14 @@ namespace Labs
         {
             ListViewItem lvi = (ListViewItem)e.Data.GetData(DataFormats.Serializable);
 
-            e.Effect = DragDropEffects.Move;
+            if (lvi.Tag == null)
+            {
+                e.Effect = DragDropEffects.None;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.Move;
+            }
         }
 
         private void listView1_DragDrop(object sender, DragEventArgs e)
