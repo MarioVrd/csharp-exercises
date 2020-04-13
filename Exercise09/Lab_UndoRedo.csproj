@@ -95,6 +95,7 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ChangePersonCmd.cs" />
     <Compile Include="CommandProcessor.cs">
       <SubType>Code</SubType>
     </Compile>

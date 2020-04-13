@@ -189,11 +189,15 @@ namespace Labs
 
             if (selectedNode.GetType().FullName == "Labs.Person")
             {
+                // Show person data
                 MenuItem menuItem1 = new MenuItem("Show person data");
                 menuItem1.Click += new System.EventHandler(showData_Click);
                 contextMenu1.MenuItems.Add(menuItem1);
+
+                // Separator
                 contextMenu1.MenuItems.Add(new MenuItem("-"));
 
+                // Delete person
                 MenuItem menuItem2 = new MenuItem("Delete person");
                 menuItem2.Click += new System.EventHandler(delPerson_Click);
                 contextMenu1.MenuItems.Add(menuItem2);
@@ -252,6 +256,8 @@ namespace Labs
 
                     if (p.Name != newName || p.LastName != newLastName || p.Age != newAge || p.City != newCity)
                     {
+                        Person beforeUpdate = new Person(p.Name, p.LastName, p.Age, p.City);
+
                         p.Name = newName;
                         p.LastName = newLastName;
                         p.Age = newAge;
@@ -259,6 +265,8 @@ namespace Labs
 
                         p.updateTreeText();
 
+                        ChangePersonCmd cpc = new ChangePersonCmd(beforeUpdate, p);
+                        _cmdProcessor.doCmd(cpc);
                     }
 
 

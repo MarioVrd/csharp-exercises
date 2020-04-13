@@ -24,8 +24,6 @@ namespace Labs
 		{
 			AppForm.PERSONS_ROOT_NODE.Nodes.Remove(_newPerson);
 			AppForm.getAppForm().MyTreeView.SelectedNode = AppForm.PERSONS_ROOT_NODE;
-
-
 		}
 
 		public override void redo()
