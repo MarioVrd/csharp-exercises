@@ -8,12 +8,14 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Formatters.Soap;
 using System.Xml.Serialization;
 using System.IO;
+using System.Runtime.Serialization;
 
 namespace Labs
 {
 	/// <summary>
 	/// Summary description for AppForm.
 	/// </summary>
+	
 	public class AppForm : System.Windows.Forms.Form
 	{
 		private static AppForm APP_FORM;
@@ -77,156 +79,159 @@ namespace Labs
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
-			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(AppForm));
-			this.mainMenu1 = new System.Windows.Forms.MainMenu();
-			this.menuItem2 = new System.Windows.Forms.MenuItem();
-			this._saveTextMenuItem = new System.Windows.Forms.MenuItem();
-			this._openTextMenuItem = new System.Windows.Forms.MenuItem();
-			this.menuItem4 = new System.Windows.Forms.MenuItem();
-			this._saveBinaryMenuItem = new System.Windows.Forms.MenuItem();
-			this._openBinaryMenuItem = new System.Windows.Forms.MenuItem();
-			this._newPersonMenuItem = new System.Windows.Forms.MenuItem();
-			this.treeView1 = new System.Windows.Forms.TreeView();
-			this.contextMenu1 = new System.Windows.Forms.ContextMenu();
-			this.toolBar1 = new System.Windows.Forms.ToolBar();
-			this._undoToolBarButton = new System.Windows.Forms.ToolBarButton();
-			this._redoToolBarButton = new System.Windows.Forms.ToolBarButton();
-			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-			this.menuItem1 = new System.Windows.Forms.MenuItem();
-			this._saveSOAPMenuItem = new System.Windows.Forms.MenuItem();
-			this._openSOAPMenuItem = new System.Windows.Forms.MenuItem();
-			this.SuspendLayout();
-			// 
-			// mainMenu1
-			// 
-			this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					  this.menuItem2,
-																					  this._newPersonMenuItem});
-			// 
-			// menuItem2
-			// 
-			this.menuItem2.Index = 0;
-			this.menuItem2.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					  this._saveTextMenuItem,
-																					  this._openTextMenuItem,
-																					  this.menuItem4,
-																					  this._saveBinaryMenuItem,
-																					  this._openBinaryMenuItem,
-																					  this.menuItem1,
-																					  this._saveSOAPMenuItem,
-																					  this._openSOAPMenuItem});
-			this.menuItem2.Text = "File";
-			// 
-			// _saveTextMenuItem
-			// 
-			this._saveTextMenuItem.Index = 0;
-			this._saveTextMenuItem.Text = "Save Text";
-			this._saveTextMenuItem.Click += new System.EventHandler(this._saveTextMenuItem_Click);
-			// 
-			// _openTextMenuItem
-			// 
-			this._openTextMenuItem.Index = 1;
-			this._openTextMenuItem.Text = "Open Text";
-			this._openTextMenuItem.Click += new System.EventHandler(this._openTextMenuItem_Click);
-			// 
-			// menuItem4
-			// 
-			this.menuItem4.Index = 2;
-			this.menuItem4.Text = "-";
-			// 
-			// _saveBinaryMenuItem
-			// 
-			this._saveBinaryMenuItem.Index = 3;
-			this._saveBinaryMenuItem.Text = "Save Binary";
-			this._saveBinaryMenuItem.Click += new System.EventHandler(this._saveBinaryMenuItem_Click);
-			// 
-			// _openBinaryMenuItem
-			// 
-			this._openBinaryMenuItem.Index = 4;
-			this._openBinaryMenuItem.Text = "Open Binary";
-			this._openBinaryMenuItem.Click += new System.EventHandler(this._openBinaryMenuItem_Click);
-			// 
-			// _newPersonMenuItem
-			// 
-			this._newPersonMenuItem.Index = 1;
-			this._newPersonMenuItem.Text = "New Person";
-			this._newPersonMenuItem.Click += new System.EventHandler(this._newPersonMenuItem_Click);
-			// 
-			// treeView1
-			// 
-			this.treeView1.ContextMenu = this.contextMenu1;
-			this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.treeView1.ImageIndex = -1;
-			this.treeView1.Location = new System.Drawing.Point(0, 28);
-			this.treeView1.Name = "treeView1";
-			this.treeView1.SelectedImageIndex = -1;
-			this.treeView1.Size = new System.Drawing.Size(503, 298);
-			this.treeView1.Sorted = true;
-			this.treeView1.TabIndex = 0;
-			this.treeView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tv_MouseDown);
-			// 
-			// contextMenu1
-			// 
-			this.contextMenu1.Popup += new System.EventHandler(this.contextMenu1_Popup);
-			// 
-			// toolBar1
-			// 
-			this.toolBar1.Buttons.AddRange(new System.Windows.Forms.ToolBarButton[] {
-																						this._undoToolBarButton,
-																						this._redoToolBarButton});
-			this.toolBar1.DropDownArrows = true;
-			this.toolBar1.ImageList = this.imageList1;
-			this.toolBar1.Location = new System.Drawing.Point(0, 0);
-			this.toolBar1.Name = "toolBar1";
-			this.toolBar1.ShowToolTips = true;
-			this.toolBar1.Size = new System.Drawing.Size(503, 28);
-			this.toolBar1.TabIndex = 1;
-			this.toolBar1.ButtonClick += new System.Windows.Forms.ToolBarButtonClickEventHandler(this.toolBar1_ButtonClick);
-			// 
-			// _undoToolBarButton
-			// 
-			this._undoToolBarButton.ImageIndex = 0;
-			// 
-			// _redoToolBarButton
-			// 
-			this._redoToolBarButton.ImageIndex = 1;
-			// 
-			// imageList1
-			// 
-			this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-			this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-			this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-			// 
-			// menuItem1
-			// 
-			this.menuItem1.Index = 5;
-			this.menuItem1.Text = "-";
-			// 
-			// _saveSOAPMenuItem
-			// 
-			this._saveSOAPMenuItem.Index = 6;
-			this._saveSOAPMenuItem.Text = "Save SOAP";
-			this._saveSOAPMenuItem.Click += new System.EventHandler(this._saveSOAPMenuItem_Click);
-			// 
-			// _openSOAPMenuItem
-			// 
-			this._openSOAPMenuItem.Index = 7;
-			this._openSOAPMenuItem.Text = "Open SOAP";
-			this._openSOAPMenuItem.Click += new System.EventHandler(this._openSOAPMenuItem_Click);
-			// 
-			// AppForm
-			// 
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(503, 326);
-			this.Controls.Add(this.treeView1);
-			this.Controls.Add(this.toolBar1);
-			this.Menu = this.mainMenu1;
-			this.Name = "AppForm";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "I/O & Serialization Lab";
-			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-			this.ResumeLayout(false);
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AppForm));
+            this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
+            this.menuItem2 = new System.Windows.Forms.MenuItem();
+            this._saveTextMenuItem = new System.Windows.Forms.MenuItem();
+            this._openTextMenuItem = new System.Windows.Forms.MenuItem();
+            this.menuItem4 = new System.Windows.Forms.MenuItem();
+            this._saveBinaryMenuItem = new System.Windows.Forms.MenuItem();
+            this._openBinaryMenuItem = new System.Windows.Forms.MenuItem();
+            this.menuItem1 = new System.Windows.Forms.MenuItem();
+            this._saveSOAPMenuItem = new System.Windows.Forms.MenuItem();
+            this._openSOAPMenuItem = new System.Windows.Forms.MenuItem();
+            this._newPersonMenuItem = new System.Windows.Forms.MenuItem();
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.contextMenu1 = new System.Windows.Forms.ContextMenu();
+            this.toolBar1 = new System.Windows.Forms.ToolBar();
+            this._undoToolBarButton = new System.Windows.Forms.ToolBarButton();
+            this._redoToolBarButton = new System.Windows.Forms.ToolBarButton();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.SuspendLayout();
+            // 
+            // mainMenu1
+            // 
+            this.mainMenu1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem2,
+            this._newPersonMenuItem});
+            // 
+            // menuItem2
+            // 
+            this.menuItem2.Index = 0;
+            this.menuItem2.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this._saveTextMenuItem,
+            this._openTextMenuItem,
+            this.menuItem4,
+            this._saveBinaryMenuItem,
+            this._openBinaryMenuItem,
+            this.menuItem1,
+            this._saveSOAPMenuItem,
+            this._openSOAPMenuItem});
+            this.menuItem2.Text = "File";
+            // 
+            // _saveTextMenuItem
+            // 
+            this._saveTextMenuItem.Index = 0;
+            this._saveTextMenuItem.Text = "Save Text";
+            this._saveTextMenuItem.Click += new System.EventHandler(this._saveTextMenuItem_Click);
+            // 
+            // _openTextMenuItem
+            // 
+            this._openTextMenuItem.Index = 1;
+            this._openTextMenuItem.Text = "Open Text";
+            this._openTextMenuItem.Click += new System.EventHandler(this._openTextMenuItem_Click);
+            // 
+            // menuItem4
+            // 
+            this.menuItem4.Index = 2;
+            this.menuItem4.Text = "-";
+            // 
+            // _saveBinaryMenuItem
+            // 
+            this._saveBinaryMenuItem.Index = 3;
+            this._saveBinaryMenuItem.Text = "Save Binary";
+            this._saveBinaryMenuItem.Click += new System.EventHandler(this._saveBinaryMenuItem_Click);
+            // 
+            // _openBinaryMenuItem
+            // 
+            this._openBinaryMenuItem.Index = 4;
+            this._openBinaryMenuItem.Text = "Open Binary";
+            this._openBinaryMenuItem.Click += new System.EventHandler(this._openBinaryMenuItem_Click);
+            // 
+            // menuItem1
+            // 
+            this.menuItem1.Index = 5;
+            this.menuItem1.Text = "-";
+            // 
+            // _saveSOAPMenuItem
+            // 
+            this._saveSOAPMenuItem.Index = 6;
+            this._saveSOAPMenuItem.Text = "Save SOAP";
+            this._saveSOAPMenuItem.Click += new System.EventHandler(this._saveSOAPMenuItem_Click);
+            // 
+            // _openSOAPMenuItem
+            // 
+            this._openSOAPMenuItem.Index = 7;
+            this._openSOAPMenuItem.Text = "Open SOAP";
+            this._openSOAPMenuItem.Click += new System.EventHandler(this._openSOAPMenuItem_Click);
+            // 
+            // _newPersonMenuItem
+            // 
+            this._newPersonMenuItem.Index = 1;
+            this._newPersonMenuItem.Text = "New Person";
+            this._newPersonMenuItem.Click += new System.EventHandler(this._newPersonMenuItem_Click);
+            // 
+            // treeView1
+            // 
+            this.treeView1.ContextMenu = this.contextMenu1;
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.Location = new System.Drawing.Point(0, 28);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(503, 298);
+            this.treeView1.Sorted = true;
+            this.treeView1.TabIndex = 0;
+            this.treeView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tv_MouseDown);
+            // 
+            // contextMenu1
+            // 
+            this.contextMenu1.Popup += new System.EventHandler(this.contextMenu1_Popup);
+            // 
+            // toolBar1
+            // 
+            this.toolBar1.Buttons.AddRange(new System.Windows.Forms.ToolBarButton[] {
+            this._undoToolBarButton,
+            this._redoToolBarButton});
+            this.toolBar1.DropDownArrows = true;
+            this.toolBar1.ImageList = this.imageList1;
+            this.toolBar1.Location = new System.Drawing.Point(0, 0);
+            this.toolBar1.Name = "toolBar1";
+            this.toolBar1.ShowToolTips = true;
+            this.toolBar1.Size = new System.Drawing.Size(503, 28);
+            this.toolBar1.TabIndex = 1;
+            this.toolBar1.ButtonClick += new System.Windows.Forms.ToolBarButtonClickEventHandler(this.toolBar1_ButtonClick);
+            // 
+            // _undoToolBarButton
+            // 
+            this._undoToolBarButton.ImageIndex = 0;
+            this._undoToolBarButton.Name = "_undoToolBarButton";
+            // 
+            // _redoToolBarButton
+            // 
+            this._redoToolBarButton.ImageIndex = 1;
+            this._redoToolBarButton.Name = "_redoToolBarButton";
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "");
+            this.imageList1.Images.SetKeyName(1, "");
+            // 
+            // AppForm
+            // 
+            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.ClientSize = new System.Drawing.Size(503, 326);
+            this.Controls.Add(this.treeView1);
+            this.Controls.Add(this.toolBar1);
+            this.Menu = this.mainMenu1;
+            this.Name = "AppForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "I/O & Serialization Lab";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AppForm_FormClosing);
+            this.Load += new System.EventHandler(this.AppForm_Load);
+            this.ResumeLayout(false);
+            this.PerformLayout();
 
 		}
 		#endregion
@@ -237,8 +242,10 @@ namespace Labs
 		[STAThread]
 		static void Main() 
 		{
+
 			Application.Run(new AppForm());
 		}
+
 
 		private void _newPersonMenuItem_Click(object sender, System.EventArgs e)
 		{
@@ -415,11 +422,6 @@ namespace Labs
 
 
 			}
-
-
-			
-
-
 		
 		}
 
@@ -535,6 +537,53 @@ namespace Labs
 
 		}
 
-		
+		private void AppForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			try
+			{
+				Stream stream = File.Open("Form.dat", FileMode.Create);
+
+				BinaryFormatter binaryFormatter = new BinaryFormatter();
+
+				FormData formData = new FormData();
+
+				formData.Width = this.Width;
+				formData.Height = this.Height;
+				formData.XPos = this.Location.X;
+				formData.YPos = this.Location.Y;
+
+				binaryFormatter.Serialize(stream, formData);
+
+				stream.Close();
+
+			}
+			catch
+			{
+
+			}
+		}
+
+		private void AppForm_Load(object sender, EventArgs e)
+		{
+			try
+			{
+				Stream stream = File.Open("Form.dat", FileMode.Open);
+
+				BinaryFormatter binaryFormatter = new BinaryFormatter();
+
+				FormData formData = (FormData)binaryFormatter.Deserialize(stream);
+
+				this.Width = formData.Width;
+				this.Height = formData.Height;
+				this.Location = new Point(formData.XPos, formData.YPos);
+
+				stream.Close();
+
+			}
+			catch
+			{
+
+			}
+		}
 	}
 }

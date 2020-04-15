@@ -107,6 +107,7 @@
     <Compile Include="Commands\DeletePersonCmd.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FormData.cs" />
     <Compile Include="Person.cs">
       <SubType>Code</SubType>
     </Compile>
