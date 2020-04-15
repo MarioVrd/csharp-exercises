@@ -256,16 +256,7 @@ namespace Labs
 
                     if (p.Name != newName || p.LastName != newLastName || p.Age != newAge || p.City != newCity)
                     {
-                        Person beforeUpdate = new Person(p.Name, p.LastName, p.Age, p.City);
-
-                        p.Name = newName;
-                        p.LastName = newLastName;
-                        p.Age = newAge;
-                        p.City = newCity;
-
-                        p.updateTreeText();
-
-                        ChangePersonCmd cpc = new ChangePersonCmd(beforeUpdate, p);
+                        ChangePersonCmd cpc = new ChangePersonCmd(p, newName, newLastName, newAge, newCity);
                         _cmdProcessor.doCmd(cpc);
                     }
 
