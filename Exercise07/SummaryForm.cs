@@ -12,63 +12,62 @@ namespace Labs
 {
     public partial class SummaryForm : Form
     {
+        public Dictionary<string, int> PeopleInCity { get; private set; } = new Dictionary<string, int>();
+
         public SummaryForm()
         {
             InitializeComponent();
 
             PersonDataModel.getDataModel().PersonModelChanged += new PersonModelChangedEventHandler(this.consumeChangeInPersonDataModel);
-
-            
         }
 
         private void consumeChangeInPersonDataModel(object sender, PersonDataModelChangedEventArgs e)
         {
             if (e.IsAdded)
             {
-                if (e.PersonInChange.City.Equals("Split"))
-                {
-                    int current = Convert.ToInt32(fromSplitLabel.Text);
-                    fromSplitLabel.Text = Convert.ToString(current + 1);
-                }
-                else if (e.PersonInChange.City.Equals("Zagreb"))
-                {
-                    int current = Convert.ToInt32(fromZagrebLabel.Text);
-                    fromZagrebLabel.Text = Convert.ToString(current + 1);
-                }
-                else if (e.PersonInChange.City.Equals("Rijeka"))
-                {
-                    int current = Convert.ToInt32(fromRijekaLabel.Text);
-                    fromRijekaLabel.Text = Convert.ToString(current + 1);
-                }
+                UpsertPeopleInCity(e.PersonInChange.City);
+                UpdateLabels();
+
             }
         }
 
         private void SummaryForm_Load(object sender, EventArgs e)
         {
             ArrayList people = PersonDataModel.getDataModel().getAllPersons();
-            int fromSplit = 0;
-            int fromZagreb = 0;
-            int fromRijeka = 0;
 
             foreach (Person person in people)
             {
-                if (person.City.Equals("Split"))
-                {
-                    fromSplit += 1;
-                }
-                else if (person.City.Equals("Zagreb"))
-                {
-                    fromZagreb += 1;
-                }
-                else if (person.City.Equals("Rijeka"))
-                {
-                    fromRijeka += 1;
-                }
+                UpsertPeopleInCity(person.City);
             }
 
-            fromSplitLabel.Text = fromSplit.ToString();
-            fromZagrebLabel.Text = fromZagreb.ToString();
-            fromRijekaLabel.Text = fromRijeka.ToString();
+            UpdateLabels();
         }
+
+        private void UpsertPeopleInCity(string city)
+        {
+            if (PeopleInCity.ContainsKey(city))
+            {
+                PeopleInCity[city] += 1;
+            }
+            else
+            {
+                PeopleInCity.Add(city, 1);
+            }
+        }
+
+        private void UpdateLabels()
+        {
+            try
+            {
+                fromRijekaLabel.Text = Convert.ToString(PeopleInCity["Rijeka"]);
+                fromSplitLabel.Text = Convert.ToString(PeopleInCity["Split"]);
+                fromZagrebLabel.Text = Convert.ToString(PeopleInCity["Zagreb"]);
+
+            }
+            catch 
+            {
+            }
+        }
+
     }
 }
