@@ -8,7 +8,6 @@ namespace Task
 {
     public class DataModel
     {
-        private static int id = 1;
         private static List<Person> people = new List<Person>();
 
         public DataModel()
@@ -26,14 +25,5 @@ namespace Task
             people.Add(person);
         }
 
-        public static Person GetPerson(int id)
-        {
-            return people.Find(person => person._id == id);
-        }
-
-        public static int GenerateID()
-        {
-            return id++;
-        }
     }
 }

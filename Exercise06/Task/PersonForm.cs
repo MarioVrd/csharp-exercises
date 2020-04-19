@@ -17,17 +17,18 @@ namespace Task
             InitializeComponent();
         }
 
-        public PersonForm(int type) : this()
+        public PersonForm(PersonFormType type) : this()
         {
             switch (type)
             {
-                case 1:
+                case PersonFormType.Add:
                     okButton.Text = "Add";
                     break;
-                case 2:
+                case PersonFormType.Edit:
                     okButton.Text = "Edit";
                     break;
-                case 3:
+                case PersonFormType.View:
+                    okButton.Text = "OK";
                     cancelButton.Visible = false;
                     nameInput.Enabled = false;
                     lastNameInput.Enabled = false;
@@ -39,7 +40,7 @@ namespace Task
             }
         }
 
-        public PersonForm(int type, Person person) : this(type)
+        public PersonForm(PersonFormType type, Person person) : this(type)
         {
             nameInput.Text = person._firstName;
             lastNameInput.Text = person._lastName;

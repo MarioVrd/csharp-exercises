@@ -8,7 +8,6 @@ namespace Task
 {
     public class Person
     {
-        public int _id { get; set; }
         public string _firstName { get; set; }
         public string _lastName { get; set; }
         public string _city { get; set; }

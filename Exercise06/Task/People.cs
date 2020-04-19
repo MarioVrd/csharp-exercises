@@ -17,14 +17,18 @@ namespace Task
             InitializeComponent();
         }
 
+        // Fill form with existing data on load
         private void People_Load(object sender, EventArgs e)
         {
             List<Person> people = DataModel.GetPeople();
+
+            peopleListView.Items.Clear();
 
             people.ForEach(person =>
             {
                 ListViewItem listViewItem = new ListViewItem(person._firstName);
                 listViewItem.SubItems.Add(person._lastName);
+                listViewItem.Tag = person;
                 peopleListView.Items.Add(listViewItem);
             });
         }
@@ -44,14 +48,13 @@ namespace Task
 
         private void newPersonToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PersonForm personForm = new PersonForm(1);
+            PersonForm personForm = new PersonForm(PersonFormType.Add);
             personForm.ShowDialog(this);
 
             if (personForm.DialogResult == DialogResult.OK)
             {
                 Person newPerson = new Person
                 {
-                    _id = DataModel.GenerateID(),
                     _firstName = personForm.getNameInput(),
                     _lastName = personForm.getLastNameInput(),
                     _age = personForm.getAgeInput(),
@@ -63,7 +66,7 @@ namespace Task
                 // Update list
                 ListViewItem listViewItem = new ListViewItem(newPerson._firstName);
                 listViewItem.SubItems.Add(newPerson._lastName);
-                listViewItem.Tag = newPerson._id;
+                listViewItem.Tag = newPerson;
                 peopleListView.Items.Add(listViewItem);
 
                 personForm.Dispose();
@@ -72,10 +75,9 @@ namespace Task
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int id = Convert.ToInt32(peopleListView.FocusedItem.Tag);
-            Person person = DataModel.GetPerson(id);
+            Person person = (Person)peopleListView.FocusedItem.Tag;
 
-            PersonForm personForm = new PersonForm(2, person);
+            PersonForm personForm = new PersonForm(PersonFormType.Edit, person);
             personForm.ShowDialog(this);
 
             if (personForm.DialogResult == DialogResult.OK)
@@ -95,9 +97,8 @@ namespace Task
 
         private void detailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int id = Convert.ToInt32(peopleListView.FocusedItem.Tag);
-            Person person = DataModel.GetPerson(id);
-            PersonForm personForm = new PersonForm(3, person);
+            Person person = (Person)peopleListView.FocusedItem.Tag;
+            PersonForm personForm = new PersonForm(PersonFormType.View, person);
             personForm.ShowDialog(this);
 
         }
