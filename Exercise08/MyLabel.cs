@@ -10,11 +10,14 @@ namespace Labs
     public class MyLabel : System.Windows.Forms.Label
     {
         private bool _isOdd;
+        private int _index;
 
         public MyLabel(int index)
         {
             int width = 250;
             int height = 80;
+
+            _index = index;
 
             this.Text = System.Convert.ToString(index);
             this.Size = new Size(width, height);
@@ -41,6 +44,7 @@ namespace Labs
             this.DragLeave += new System.EventHandler(this.MyLabel_DragLeave);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MyLabel_DragDrop);
 
+            this.MouseDown += MyLabel_MouseDown;
         }
 
         private void MyLabel_DragEnter(object sender, System.Windows.Forms.DragEventArgs e)
@@ -73,14 +77,6 @@ namespace Labs
             {
                 label.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             }
-
-            ListViewItem lvi = (ListViewItem)label.Tag;
-            Person person = (Person)lvi.Tag;
-
-            string labelText = (person.Index % 2 == 0) ? "even" : "odd";
-
-            label.Text = labelText;
-            label.Tag = null;
         }
 
         private void MyLabel_DragDrop(object sender, System.Windows.Forms.DragEventArgs e)
@@ -91,8 +87,6 @@ namespace Labs
             this.Text = dropedPerson.Name + " " + dropedPerson.LastName;
             this.Tag = lvi;
             this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-
-            this.MouseDown += MyLabel_MouseDown;
 
             this.ContextMenu = new ContextMenu();
             this.ContextMenu.Popup += ContextMenu_Popup;
@@ -118,13 +112,14 @@ namespace Labs
 
         private void MyLabel_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left && this.Tag != null)
             {
                 ListViewItem lvi = (ListViewItem)this.Tag;
 
-                this.DoDragDrop(lvi, DragDropEffects.Move);
-
-                this.MouseDown -= MyLabel_MouseDown;
+                if (DragDropEffects.Move == this.DoDragDrop(lvi, DragDropEffects.Move)) {
+                    this.Tag = null;
+                    this.Text = Convert.ToString(_index);
+                }
             }
         }
 
