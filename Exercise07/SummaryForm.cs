@@ -14,6 +14,10 @@ namespace Labs
     {
         public Dictionary<string, int> PeopleInCity { get; private set; } = new Dictionary<string, int>();
 
+        private Point location = new Point(30, 30);
+        private int yDistance = 30;
+        public List<Label> Labels { get; private set; } = new List<Label>();
+
         public SummaryForm()
         {
             InitializeComponent();
@@ -26,8 +30,6 @@ namespace Labs
             if (e.IsAdded)
             {
                 UpsertPeopleInCity(e.PersonInChange.City);
-                UpdateLabels();
-
             }
         }
 
@@ -39,8 +41,21 @@ namespace Labs
             {
                 UpsertPeopleInCity(person.City);
             }
+        }
 
-            UpdateLabels();
+        private void CreateLabel(string city)
+        {
+            Label label = new Label();
+            label.AutoSize = true;
+            label.Location = location;
+            label.Name = city;
+            label.Text = $"Persons from { city }: { PeopleInCity[city] }";
+            label.Visible = true;
+
+            this.Controls.Add(label);
+            Labels.Add(label);
+
+            location.Y += yDistance;
         }
 
         private void UpsertPeopleInCity(string city)
@@ -48,25 +63,21 @@ namespace Labs
             if (PeopleInCity.ContainsKey(city))
             {
                 PeopleInCity[city] += 1;
+
+                UpdateLabel(city);
             }
             else
             {
                 PeopleInCity.Add(city, 1);
+
+                CreateLabel(city);
             }
         }
 
-        private void UpdateLabels()
+        private void UpdateLabel(string city)
         {
-            try
-            {
-                fromRijekaLabel.Text = Convert.ToString(PeopleInCity["Rijeka"]);
-                fromSplitLabel.Text = Convert.ToString(PeopleInCity["Split"]);
-                fromZagrebLabel.Text = Convert.ToString(PeopleInCity["Zagreb"]);
-
-            }
-            catch 
-            {
-            }
+            Label output = Labels.Where(label => label.Name == city).FirstOrDefault();
+            output.Text = $"Persons in { city }: { Convert.ToString(PeopleInCity[city]) }";
         }
 
     }
