@@ -25,7 +25,7 @@ namespace EFTask.Api.Repository
             return result.Entity;
         }
 
-        public async void DeleteStudent(int studentId)
+        public async Task<Studenti> DeleteStudent(int studentId)
         {
             var student = await _context.Studenti.FirstOrDefaultAsync(s => s.Id == studentId);
 
@@ -33,7 +33,9 @@ namespace EFTask.Api.Repository
             {
                 _context.Studenti.Remove(student);
                 await _context.SaveChangesAsync();
+                return student;
             }
+            return null;
         }
 
         public async Task<Studenti> GetStudent(int studentId)
@@ -44,6 +46,27 @@ namespace EFTask.Api.Repository
         public async Task<List<Studenti>> GetStudents()
         {
             return await _context.Studenti.ToListAsync();
+        }
+
+        public async Task<Studenti> GetStudentWithCourses(int studentId)
+        {
+            var student = await _context.Studenti
+                                .Where(s => s.Id == studentId)
+                                .Include(e => e.PredmetiStudenti)
+                                .ThenInclude(c => c.IdPredmetaNavigation)
+                                .FirstOrDefaultAsync();
+
+            return student;
+        }
+
+        public async Task<List<Studenti>> GetStudentsWithCourses()
+        {
+            var students = await _context.Studenti
+                                    .Include(e => e.PredmetiStudenti)
+                                    .ThenInclude(c => c.IdPredmetaNavigation)
+                                    .ToListAsync();
+
+            return students;
         }
 
         public async Task<Studenti> UpdateStudent(Studenti updatedStudent)

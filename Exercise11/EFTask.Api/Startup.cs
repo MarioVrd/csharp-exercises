@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EFTask.Api.Models;
+using EFTask.Api.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,10 +28,16 @@ namespace EFTask.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-
             services.AddDbContext<StudentiContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("StudentiDB")));
+
+            services.AddScoped<IStudentiRepository, StudentiRepository>();
+            services.AddScoped<IPredmetiRepository, PredmetiRepository>();
+
+            services
+                .AddControllers()
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
