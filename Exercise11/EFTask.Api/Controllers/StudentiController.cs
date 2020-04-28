@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EFTask.Api.Models;
 using EFTask.Api.Repository;
+using EFTask.Domain.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +14,6 @@ namespace EFTask.Api.Controllers
     public class StudentiController : ControllerBase
     {
         private readonly IStudentiRepository _studentiRepository;
-
         public StudentiController(IStudentiRepository studentiRepository)
         {
             _studentiRepository = studentiRepository;

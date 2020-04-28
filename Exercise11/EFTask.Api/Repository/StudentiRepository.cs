@@ -1,4 +1,5 @@
-﻿using EFTask.Api.Models;
+﻿using EFTask.Domain.Models;
+using EFTask.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

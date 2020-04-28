@@ -1,4 +1,5 @@
 ﻿using System;
+using EFTask.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 

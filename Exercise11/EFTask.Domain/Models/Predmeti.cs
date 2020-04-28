@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EFTask.Api.Models
+namespace EFTask.Domain.Models
 {
     public partial class Predmeti
     {
