@@ -1,0 +1,34 @@
+﻿@page "/students"
+@inherits StudentsBase
+
+<h3>Popis studenata</h3>
+
+@if (students == null)
+{
+    <div class="spinner-border"></div>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Predmeti</th>
+        </tr>
+        @foreach (var student in students)
+        {
+            <tr>
+                <td>@student.Ime</td>
+                <td>@student.Prezime</td>
+                <td>
+                    @{
+                        @foreach (var course in student.PredmetiStudenti)
+                        {
+                            <span>@course.IdPredmetaNavigation.Naziv</span><br />
+                        }
+                }
+            </td>
+        </tr>
+    }
+    </table>
+}
