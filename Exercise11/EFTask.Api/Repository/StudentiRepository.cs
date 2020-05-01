@@ -26,12 +26,22 @@ namespace EFTask.Api.Repository
             return result.Entity;
         }
 
+        /// <summary>
+        /// Delete student and all enrollments
+        /// </summary>
+        /// <param name="studentId">ID of student to delete</param>
+        /// <returns>Removed student</returns>
         public async Task<Studenti> DeleteStudent(int studentId)
         {
             var student = await _context.Studenti.FirstOrDefaultAsync(s => s.Id == studentId);
 
             if (student != null)
             {
+                // Find and Remove connections
+                var enrollmentsToRemove = _context.PredmetiStudenti.Where(e => e.IdStudenta == student.Id);
+                _context.PredmetiStudenti.RemoveRange(enrollmentsToRemove);
+
+                // Remove student
                 _context.Studenti.Remove(student);
                 await _context.SaveChangesAsync();
                 return student;
@@ -78,6 +88,13 @@ namespace EFTask.Api.Repository
             {
                 student.Ime = updatedStudent.Ime;
                 student.Prezime = updatedStudent.Prezime;
+
+                if (student.PredmetiStudenti.Count != updatedStudent.PredmetiStudenti.Count)
+                {
+                    student.PredmetiStudenti.Clear();
+                    student.PredmetiStudenti = updatedStudent.PredmetiStudenti;
+
+                }
 
                 await _context.SaveChangesAsync();
 
