@@ -14,9 +14,12 @@ namespace EFTask.Api.Controllers
     public class StudentiController : ControllerBase
     {
         private readonly IStudentiRepository _studentiRepository;
-        public StudentiController(IStudentiRepository studentiRepository)
+        private readonly IPredmetiRepository _predmetiRepository;
+
+        public StudentiController(IStudentiRepository studentiRepository, IPredmetiRepository predmetiRepository)
         {
             _studentiRepository = studentiRepository;
+            _predmetiRepository = predmetiRepository;
         }
 
         [HttpGet]
@@ -93,6 +96,36 @@ namespace EFTask.Api.Controllers
                 }
 
                 return await _studentiRepository.UpdateStudent(updatedStudent);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error updating data");
+            }
+        }
+
+        [HttpPut("{studentId:int}/{courseId:int}")]
+        public async Task<ActionResult<Studenti>> UpdateStudentEnrollment(int studentId, int courseId)
+        {
+            try
+            {
+                var studentToUpdate = await _studentiRepository.GetStudentWithCourses(studentId);
+                var course = await _predmetiRepository.GetCourse(courseId);
+
+                if (studentToUpdate == null || course == null)
+                {
+                    return NotFound("Requested data couldn't be found.");
+                }
+
+                PredmetiStudenti enrollment = new PredmetiStudenti {
+                    IdPredmeta = course.Id,
+                    IdPredmetaNavigation = course,
+                    IdStudenta = studentToUpdate.Id,
+                    IdStudentaNavigation = studentToUpdate
+                };
+
+                studentToUpdate.PredmetiStudenti.Add(enrollment);
+
+                return await _studentiRepository.UpdateStudent(studentToUpdate);
             }
             catch (Exception)
             {
