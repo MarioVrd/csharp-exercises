@@ -9,7 +9,7 @@ namespace EFTask.Api.Repository
     public interface IStudentiRepository
     {
         Task<Studenti> AddStudent(Studenti student);
-        Task<Studenti> DeleteStudent(int studentId);
+        Task DeleteStudent(int studentId);
         Task<Studenti> GetStudent(int studentId);
         Task<Studenti> GetStudentWithCourses(int studentId);
         Task<List<Studenti>> GetStudents();

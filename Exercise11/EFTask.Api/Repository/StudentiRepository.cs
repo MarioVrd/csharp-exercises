@@ -31,7 +31,7 @@ namespace EFTask.Api.Repository
         /// </summary>
         /// <param name="studentId">ID of student to delete</param>
         /// <returns>Removed student</returns>
-        public async Task<Studenti> DeleteStudent(int studentId)
+        public async Task DeleteStudent(int studentId)
         {
             var student = await _context.Studenti.FirstOrDefaultAsync(s => s.Id == studentId);
 
@@ -44,9 +44,7 @@ namespace EFTask.Api.Repository
                 // Remove student
                 _context.Studenti.Remove(student);
                 await _context.SaveChangesAsync();
-                return student;
             }
-            return null;
         }
 
         public async Task<Studenti> GetStudent(int studentId)
@@ -93,7 +91,6 @@ namespace EFTask.Api.Repository
                 {
                     student.PredmetiStudenti.Clear();
                     student.PredmetiStudenti = updatedStudent.PredmetiStudenti;
-
                 }
 
                 await _context.SaveChangesAsync();

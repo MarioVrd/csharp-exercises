@@ -26,7 +26,7 @@ namespace EFTask.Api.Repository
             return result.Entity;
         }
 
-        public async void DeleteCourse(int courseId)
+        public async Task DeleteCourse(int courseId)
         {
             var course = await _context.Predmeti.FirstOrDefaultAsync(c => c.Id == courseId);
 
@@ -45,6 +45,27 @@ namespace EFTask.Api.Repository
         public async Task<List<Predmeti>> GetCourses()
         {
             return await _context.Predmeti.ToListAsync();
+        }
+
+        public async Task<List<Predmeti>> GetCoursesWithStudents()
+        {
+            var courses = await _context.Predmeti
+                .Include(c => c.PredmetiStudenti)
+                .ThenInclude(e => e.IdStudentaNavigation)
+                .ToListAsync();
+
+            return courses;
+        }
+
+        public async Task<Predmeti> GetCourseWithStudents(int courseId)
+        {
+            var course = await _context.Predmeti
+                .Where(c => c.Id == courseId)
+                .Include(c => c.PredmetiStudenti)
+                .ThenInclude(e => e.IdStudentaNavigation)
+                .FirstOrDefaultAsync();
+
+            return course;
         }
 
         public async Task<Predmeti> UpdateCourse(Predmeti updatedCourse)

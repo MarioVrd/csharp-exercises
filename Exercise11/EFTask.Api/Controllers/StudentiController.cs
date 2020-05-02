@@ -103,8 +103,8 @@ namespace EFTask.Api.Controllers
             }
         }
 
-        [HttpPut("{studentId:int}/{courseId:int}")]
-        public async Task<ActionResult<Studenti>> UpdateStudentEnrollment(int studentId, int courseId)
+        [HttpPut("{studentId:int}/enroll/{courseId:int}")]
+        public async Task<ActionResult<Studenti>> EnrollStudent(int studentId, int courseId)
         {
             try
             {
@@ -124,6 +124,7 @@ namespace EFTask.Api.Controllers
                 };
 
                 studentToUpdate.PredmetiStudenti.Add(enrollment);
+                course.PredmetiStudenti.Add(enrollment);
 
                 return await _studentiRepository.UpdateStudent(studentToUpdate);
             }
@@ -133,8 +134,35 @@ namespace EFTask.Api.Controllers
             }
         }
 
+        [HttpPut("{studentId:int}/unenroll/{courseId:int}")]
+        public async Task<ActionResult<Studenti>> UnenrollStudent(int studentId, int courseId)
+        {
+            try
+            {
+                var studentToUpdate = await _studentiRepository.GetStudentWithCourses(studentId);
+                var course = await _predmetiRepository.GetCourse(courseId);
+
+                if (studentToUpdate == null || course == null)
+                {
+                    return NotFound("Requested data couldn't be found.");
+                }
+
+                var enrollment = studentToUpdate.PredmetiStudenti.FirstOrDefault(e => e.IdPredmeta == courseId);
+
+                studentToUpdate.PredmetiStudenti.Remove(enrollment);
+                course.PredmetiStudenti.Remove(enrollment);
+
+                return await _studentiRepository.UpdateStudent(studentToUpdate);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error updating data");
+            }
+        }
+
+
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<Studenti>> DeleteStudent(int id)
+        public async Task<ActionResult> DeleteStudent(int id)
         {
             try
             {
@@ -145,7 +173,9 @@ namespace EFTask.Api.Controllers
                     return NotFound("Student with specified ID not found");
                 }
 
-                return await _studentiRepository.DeleteStudent(id);
+                await _studentiRepository.DeleteStudent(id);
+
+                return StatusCode(StatusCodes.Status204NoContent);
             }
             catch (Exception)
             {
