@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFTask.Web", "EFTask.Web\EF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFTask.Api", "EFTask.Api\EFTask.Api.csproj", "{2B7146BF-CCCA-4A2A-A24F-3E6D95D1A580}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFTask.Domain", "EFTask.Domain\EFTask.Domain.csproj", "{4D460A78-0EAA-4EC3-9861-CC1A1E522352}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFTask.Domain", "EFTask.Domain\EFTask.Domain.csproj", "{4D460A78-0EAA-4EC3-9861-CC1A1E522352}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -77,7 +77,7 @@ namespace EFTask.Api.Controllers
                     return BadRequest("Course ID mismatch");
                 }
 
-                var courseToUpdate = _predmetiRepository.GetCourse(id);
+                var courseToUpdate = await _predmetiRepository.GetCourse(id);
 
                 if (courseToUpdate == null)
                 {

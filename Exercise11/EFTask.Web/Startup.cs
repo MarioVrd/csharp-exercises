@@ -33,6 +33,11 @@ namespace EFTask.Web
             {
                 client.BaseAddress = new Uri("https://localhost:44348/");
             });
+            
+            services.AddHttpClient<IPredmetiService, PredmetiService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44348/");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
