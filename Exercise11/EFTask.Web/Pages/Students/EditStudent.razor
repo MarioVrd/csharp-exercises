@@ -1,0 +1,84 @@
+﻿@page "/students/{id:int}/edit"
+@using EFTask.Domain.Models
+@using EFTask.Domain.ViewModels
+@using EFTask.Web.Services
+
+<h3>Edit Student</h3>
+
+@if (Student == null || Courses == null)
+{
+    <div class="spinner-border"></div>
+}
+else
+{
+    <form @onsubmit="UpdateStudent">
+        <div class="form-group">
+            <label for="first-name">First Name</label>
+            <input type="text" @bind="Student.Ime" @bind:event="onchange" id="first-name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="last-name">Last Name</label>
+            <input type="text" @bind="Student.Prezime" @bind:event="onchange" id="last-name" class="form-control" />
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6">
+                <h5>Enrolled Courses</h5>
+                <ul class="list-group">
+                    @foreach (var e in Student.PredmetiStudenti)
+                    {
+                        <li class="list-group-item">@Courses.FirstOrDefault(c => c.Id == e.IdPredmeta).Naziv</li>
+                    }
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h5>All Courses</h5>
+                <ul class="list-group">
+                    @foreach (var course in Courses)
+                    {
+                        if (!Student.PredmetiStudenti.Any(e => e.IdPredmeta == course.Id && e.IdStudenta == Student.Id))
+                        {
+                            <li class="list-group-item" @onclick="() => EnrollCourse(course)">@course.Naziv</li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Update</button>
+        </div>
+    </form>
+}
+
+@code {
+    [Inject]
+    public IStudentiService StudentiService { get; set; }
+    [Inject]
+    public IPredmetiService PredmetiService { get; set; }
+
+    [Parameter]
+    public int Id { get; set; }
+    public StudentiView Student { get; set; }
+    public List<PredmetiView> Courses { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Student = await StudentiService.GetStudentView(Id);
+        Courses = await PredmetiService.GetCoursesView();
+    }
+
+    protected void EnrollCourse(PredmetiView course)
+    {
+        PredmetiStudentiView enrollment = new PredmetiStudentiView
+        {
+            IdStudenta = Student.Id,
+            IdPredmeta = course.Id
+        };
+
+        Student.PredmetiStudenti.Add(enrollment);
+    }
+
+    protected async Task UpdateStudent()
+    {
+        await StudentiService.UpdateStudent(Id, Student);
+    }
+}

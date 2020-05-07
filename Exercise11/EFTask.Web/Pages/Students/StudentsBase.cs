@@ -19,5 +19,20 @@ namespace EFTask.Web.Pages
         {
             students = await StudentiService.GetStudents();
         }
+
+        protected async Task DeleteStudent(int id)
+        {
+            try
+            {
+                await StudentiService.DeleteStudent(id);
+                var student = students.FirstOrDefault(s => s.Id == id);
+                students.Remove(student);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

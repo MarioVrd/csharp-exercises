@@ -1,7 +1,10 @@
 ﻿@page "/students"
 @inherits StudentsBase
 
-<h3>Popis studenata</h3>
+<header class="row mb-4">
+    <h3 class="col-md-10">Popis studenata</h3>
+    <a href="students/add" class="btn btn-success col-md-2">Add Student</a>
+</header>
 
 @if (students == null)
 {
@@ -14,6 +17,7 @@ else
             <th>Ime</th>
             <th>Prezime</th>
             <th>Predmeti</th>
+            <th></th>
         </tr>
         @foreach (var student in students)
         {
@@ -27,8 +31,12 @@ else
                             <span>@course.IdPredmetaNavigation.Naziv</span><br />
                         }
                 }
-            </td>
-        </tr>
-    }
+                </td>
+                <td>
+                    <a href="students/@student.Id/edit" class="btn btn-primary">Edit</a>
+                    <a @onclick="() => DeleteStudent(student.Id)" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
     </table>
 }

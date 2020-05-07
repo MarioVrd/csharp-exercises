@@ -1,4 +1,5 @@
 ﻿using EFTask.Domain.Models;
+using EFTask.Domain.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,7 @@ namespace EFTask.Web.Services
     public interface IPredmetiService
     {
         Task<List<Predmeti>> GetCourses();
+        Task<List<PredmetiView>> GetCoursesView();
+        Task<Predmeti> AddCourse(Predmeti course);
     }
 }

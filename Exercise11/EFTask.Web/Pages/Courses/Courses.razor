@@ -1,0 +1,35 @@
+﻿@page "/courses"
+@inherits CoursesBase
+
+    <header class="row mb-4">
+        <h3 class="col-md-10">Courses</h3>
+        <a href="courses/add" class="btn btn-success col-md-2">Add Course</a>
+    </header>
+
+@if (courses == null)
+{
+    <div class="spinner-border"></div>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Naziv</th>
+            <th>Studenti</th>
+        </tr>
+        @foreach (var course in courses)
+        {
+            <tr>
+                <td>@course.Id</td>
+                <td>@course.Naziv</td>
+                <td>
+                    @foreach (var student in course.PredmetiStudenti)
+                    {
+                        <span>@student.IdStudentaNavigation.Ime @student.IdStudentaNavigation.Prezime</span><br />
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}
