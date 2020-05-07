@@ -88,18 +88,18 @@ namespace EFTask.Api.Controllers
                     return BadRequest("Student ID mismatch");
                 }
 
-                var studentToUpdate = await _studentiRepository.GetStudent(id);
+                var studentToUpdate = await _studentiRepository.GetStudentWithCourses(id);
 
                 if (studentToUpdate == null)
                 {
                     return NotFound("Student with specified ID not found");
                 }
 
-                return await _studentiRepository.UpdateStudent(updatedStudent);
+                return Ok(await _studentiRepository.UpdateStudent(updatedStudent));
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error updating data");
+                return StatusCode(StatusCodes.Status500InternalServerError, e);
             }
         }
 

@@ -84,14 +84,23 @@ namespace EFTask.Api.Repository
 
             if (student != null)
             {
-                student.Ime = updatedStudent.Ime;
-                student.Prezime = updatedStudent.Prezime;
+                //student.Ime = updatedStudent.Ime;
+                //student.Prezime = updatedStudent.Prezime;
 
-                if (student.PredmetiStudenti.Count != updatedStudent.PredmetiStudenti.Count)
+                var enrollments = new HashSet<PredmetiStudenti>();
+
+                foreach (var e in updatedStudent.PredmetiStudenti)
                 {
-                    student.PredmetiStudenti.Clear();
-                    student.PredmetiStudenti = updatedStudent.PredmetiStudenti;
+                    enrollments.Add(new PredmetiStudenti
+                    {
+                        IdPredmeta = e.IdPredmeta,
+                        IdStudenta = student.Id
+                    });
                 }
+
+                // Update Data
+                _context.Entry(student).CurrentValues.SetValues(updatedStudent);
+                student.PredmetiStudenti = enrollments;
 
                 await _context.SaveChangesAsync();
 
