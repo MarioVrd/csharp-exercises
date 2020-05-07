@@ -32,6 +32,8 @@ namespace EFTask.Api.Repository
 
             if (course != null)
             {
+                var enrollmentsToRemove = _context.PredmetiStudenti.Where(e => e.IdPredmeta == course.Id);
+                _context.PredmetiStudenti.RemoveRange(enrollmentsToRemove);
                 _context.Predmeti.Remove(course);
                 await _context.SaveChangesAsync();
             }

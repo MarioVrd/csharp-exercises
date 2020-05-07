@@ -1,0 +1,23 @@
+﻿@page "/courses/{id:int}/edit"
+@inherits EditCourseBase
+
+<h3>Edit Course</h3>
+
+@if (Course == null)
+{
+    <div class="spinner-border"></div>
+}
+else
+{
+    <EditForm Model="@Course" OnValidSubmit="UpdateCourse">
+        <DataAnnotationsValidator />
+        <div class="form-group">
+            <label for="title">Title</label>
+            <InputText id="title" class="form-control" @bind-Value="Course.Naziv" />
+            <ValidationMessage For="() => Course.Naziv" />
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary btn-block">Update</button>
+        </div>
+    </EditForm>
+}

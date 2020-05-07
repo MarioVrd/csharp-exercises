@@ -1,5 +1,6 @@
 ﻿@page "/students"
 @inherits StudentsBase
+@inject NavigationManager NavigationManager
 
 <header class="row mb-4">
     <h3 class="col-md-10">Popis studenata</h3>
@@ -33,8 +34,8 @@ else
                 }
                 </td>
                 <td>
-                    <a href="students/@student.Id/edit" class="btn btn-primary">Edit</a>
-                    <a @onclick="() => DeleteStudent(student.Id)" class="btn btn-danger">Delete</a>
+                    <button @onclick="@(() => NavigationManager.NavigateTo($"students/{student.Id}/edit"))" class="btn btn-primary">Edit</button>
+                    <button @onclick="() => DeleteStudent(student.Id)" class="btn btn-outline-danger">Delete</button>
                 </td>
             </tr>
         }

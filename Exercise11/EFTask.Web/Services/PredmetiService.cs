@@ -45,9 +45,24 @@ namespace EFTask.Web.Services
             return output;
         }
 
+        public async Task<Predmeti> GetCourse(int id)
+        {
+            return await _httpClient.GetJsonAsync<Predmeti>($"api/predmeti/{id}");
+        }
+
         public async Task<Predmeti> AddCourse(Predmeti course)
         {
             return await _httpClient.PostJsonAsync<Predmeti>("api/predmeti", course);
+        }
+
+        public async Task<Predmeti> UpdateCourse(int id, Predmeti course)
+        {
+            return await _httpClient.PutJsonAsync<Predmeti>($"api/predmeti/{id}", course);
+        }
+
+        public async Task DeleteCourse(int id)
+        {
+            await _httpClient.DeleteAsync($"api/predmeti/{id}");
         }
     }
 }

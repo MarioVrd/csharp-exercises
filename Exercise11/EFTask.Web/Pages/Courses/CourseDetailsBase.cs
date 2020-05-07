@@ -6,24 +6,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EFTask.Web.Pages
+namespace EFTask.Web.Pages.Courses
 {
-    public class CoursesBase : ComponentBase
+    public class CourseDetailsBase : ComponentBase
     {
         [Inject]
         public IPredmetiService PredmetiService { get; set; }
-
-        protected List<Predmeti> courses;
+        [Parameter]
+        public int Id { get; set; }
+        public Predmeti Course { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            courses = await PredmetiService.GetCourses();
+            Course = await PredmetiService.GetCourse(Id);
         }
 
-        protected async Task DeleteCourse(int id)
-        {
-            await PredmetiService.DeleteCourse(id);
-            courses.RemoveAll(c => c.Id == id);
-        }
     }
 }

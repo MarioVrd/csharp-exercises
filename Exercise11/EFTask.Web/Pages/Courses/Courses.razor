@@ -1,5 +1,6 @@
 ﻿@page "/courses"
 @inherits CoursesBase
+@inject NavigationManager NavigationManager
 
     <header class="row mb-4">
         <h3 class="col-md-10">Courses</h3>
@@ -17,6 +18,7 @@ else
             <th>ID</th>
             <th>Naziv</th>
             <th>Studenti</th>
+            <th></th>
         </tr>
         @foreach (var course in courses)
         {
@@ -24,10 +26,13 @@ else
                 <td>@course.Id</td>
                 <td>@course.Naziv</td>
                 <td>
-                    @foreach (var student in course.PredmetiStudenti)
-                    {
-                        <span>@student.IdStudentaNavigation.Ime @student.IdStudentaNavigation.Prezime</span><br />
-                    }
+                    <button class="btn btn-outline-info" @onclick="@(() => NavigationManager.NavigateTo($"courses/{course.Id}/details"))">
+                        View Enrolled (@course.PredmetiStudenti.Count)
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-primary" @onclick="@(() => NavigationManager.NavigateTo($"courses/{ course.Id }/edit"))">Edit</button>
+                    <button class="btn btn-outline-danger" @onclick="() => DeleteCourse(course.Id)">Delete</button>
                 </td>
             </tr>
         }

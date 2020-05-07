@@ -11,6 +11,9 @@ namespace EFTask.Web.Services
     {
         Task<List<Predmeti>> GetCourses();
         Task<List<PredmetiView>> GetCoursesView();
+        Task<Predmeti> GetCourse(int id);
         Task<Predmeti> AddCourse(Predmeti course);
+        Task<Predmeti> UpdateCourse(int id, Predmeti course);
+        Task DeleteCourse(int id);
     }
 }

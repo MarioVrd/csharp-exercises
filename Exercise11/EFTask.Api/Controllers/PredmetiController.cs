@@ -31,7 +31,7 @@ namespace EFTask.Api.Controllers
         {
             try
             {
-                var course = await _predmetiRepository.GetCourse(id);
+                var course = await _predmetiRepository.GetCourseWithStudents(id);
 
                 if (course == null)
                 {

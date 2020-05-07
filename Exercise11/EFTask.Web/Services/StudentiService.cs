@@ -64,17 +64,16 @@ namespace EFTask.Web.Services
                 PredmetiStudenti enrollment = new PredmetiStudenti { IdPredmeta = e.IdPredmeta, IdStudenta = e.IdStudenta };
                 parsedStudent.PredmetiStudenti.Add(enrollment);
             }
-            
+
             #endregion
+
             var response = await _httpClient.PutJsonAsync<Studenti>($"api/studenti/{ id }", parsedStudent);
-            
             return response;
         }
 
         public async Task DeleteStudent(int id)
         {
             var response = await _httpClient.DeleteAsync($"api/studenti/{ id }");
-
         }
     }
 }
