@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace EFTask.Domain.Models
 {
@@ -11,6 +12,7 @@ namespace EFTask.Domain.Models
         }
 
         public int Id { get; set; }
+        [Required]
         public string Naziv { get; set; }
 
         public virtual ICollection<PredmetiStudenti> PredmetiStudenti { get; set; }
