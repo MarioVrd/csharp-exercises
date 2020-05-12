@@ -51,15 +51,10 @@ namespace EFTask.Web.Pages.Students
 
         protected async Task UpdateStudent()
         {
-            try
+            var response = await StudentiService.UpdateStudent(Id, Student);
+            if (response != null)
             {
-                await StudentiService.UpdateStudent(Id, Student);
-                NavigationManager.NavigateTo($"/students/{Id}/details");
-            }
-            catch (Exception)
-            {
-                // Display Error
-                // Log exception
+                NavigationManager.NavigateTo($"/students/{Id}/details"); 
             }
         }
     }

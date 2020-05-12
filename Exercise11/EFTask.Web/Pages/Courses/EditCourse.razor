@@ -3,11 +3,7 @@
 
 <h3>Edit Course</h3>
 
-@if (Course == null)
-{
-    <div class="spinner-border"></div>
-}
-else
+@if (Course != null)
 {
     <EditForm Model="@Course" OnValidSubmit="UpdateCourse">
         <DataAnnotationsValidator />
@@ -20,4 +16,12 @@ else
             <button class="btn btn-primary btn-block">Update</button>
         </div>
     </EditForm>
+}
+else if (FetchSuccess == false)
+{
+    <p>Sorry, we could not load this course.</p>
+}
+else
+{
+    <div class="spinner-border"></div>
 }

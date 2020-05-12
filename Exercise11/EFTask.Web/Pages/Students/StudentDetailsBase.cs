@@ -15,10 +15,19 @@ namespace EFTask.Web.Pages.Students
         [Parameter]
         public int Id { get; set; }
         public Studenti Student { get; set; }
+        public bool FetchSuccess { get; set; } = true;
 
         protected override async Task OnInitializedAsync()
         {
-            Student = await StudentiService.GetStudent(Id);
+            try
+            {
+                Student = await StudentiService.GetStudent(Id);
+                FetchSuccess = true;
+            }
+            catch (Exception)
+            {
+                FetchSuccess = false;
+            }
         }
     }
 }

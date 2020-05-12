@@ -15,13 +15,16 @@ namespace EFTask.Web.Pages
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        public Studenti student = new Studenti();
+        public Studenti Student { get; set; } = new Studenti();
         protected async Task CreateStudent()
         {
             try
             {
-                await StudentiService.AddStudent(student);
-                NavigationManager.NavigateTo("/students");
+                var response = await StudentiService.AddStudent(Student);
+                if (response != null)
+                {
+                    NavigationManager.NavigateTo("/students");
+                }
             }
             catch (Exception)
             {

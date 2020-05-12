@@ -13,17 +13,17 @@ namespace EFTask.Web.Pages
         [Inject]
         public IPredmetiService PredmetiService { get; set; }
 
-        protected List<Predmeti> courses;
+        public List<Predmeti> Courses { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            courses = await PredmetiService.GetCourses();
+            Courses = await PredmetiService.GetCourses();
         }
 
         protected async Task DeleteCourse(int id)
         {
             await PredmetiService.DeleteCourse(id);
-            courses.RemoveAll(c => c.Id == id);
+            Courses.RemoveAll(c => c.Id == id);
         }
     }
 }

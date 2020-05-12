@@ -12,18 +12,32 @@ namespace EFTask.Web.Pages.Courses
     {
         [Inject]
         public IPredmetiService PredmetiService { get; set; }
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
         [Parameter]
         public int Id { get; set; }
         public Predmeti Course { get; set; }
-
+        public bool FetchSuccess { get; set; } = true;
         protected override async Task OnInitializedAsync()
         {
-            Course = await PredmetiService.GetCourse(Id);
+            try
+            {
+                Course = await PredmetiService.GetCourse(Id);
+                FetchSuccess = true;
+            }
+            catch (Exception)
+            {
+                FetchSuccess = false;
+            }
         }
 
         protected async Task UpdateCourse()
         {
-            await PredmetiService.UpdateCourse(Id, Course);
+            var response = await PredmetiService.UpdateCourse(Id, Course);
+            if (response != null)
+            {
+                NavigationManager.NavigateTo($"/courses/{Id}/details");
+            }
         }
     }
 }

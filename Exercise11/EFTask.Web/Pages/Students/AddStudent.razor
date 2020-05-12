@@ -3,16 +3,19 @@
  
 <h3>Add Student</h3>
 
-<form @onsubmit="CreateStudent">
+<EditForm Model="@Student" OnValidSubmit="CreateStudent">
+    <DataAnnotationsValidator />
     <div class="form-group">
         <label for="first-name">First Name</label>
-        <input id="first-name" class="form-control" @bind="student.Ime" />
+        <InputText id="first-name" class="form-control" @bind-Value="Student.Ime" />
+        <ValidationMessage For="() => Student.Ime" />
     </div>
     <div class="form-group">
         <label for="last-name">Last Name</label>
-        <input id="last-name" class="form-control" @bind="student.Prezime" />
+        <InputText id="last-name" class="form-control" @bind-Value="Student.Prezime" />
+        <ValidationMessage For="() => Student.Prezime" />
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-block btn-primary">Add Student</button>
     </div>
-</form>
+</EditForm>

@@ -1,19 +1,28 @@
 ﻿@page "/courses/{id:int}/details"
 @inherits CourseDetailsBase
+@inject NavigationManager NavigationManager
 
-@if (Course == null || Course.PredmetiStudenti == null)
-{
-    <div class="spinner-border"></div>
-}
-else
+@if (Course != null)
 {
     <h3>@Course.Naziv</h3>
 
+    <hr />
+
     <h5>Enrolled students (@Course.PredmetiStudenti.Count)</h5>
-    <ul class="list-group">
+    <ul class="list-group mb-3">
         @foreach (var e in Course.PredmetiStudenti)
         {
             <li class="list-group-item">@e.IdStudentaNavigation.Ime @e.IdStudentaNavigation.Prezime</li>
         }
     </ul>
+
+    <button @onclick="@(() => NavigationManager.NavigateTo($"/courses/{Id}/edit"))" class="btn btn-block btn-primary">Edit Course</button>
+}
+else if (FetchSuccess == false)
+{
+    <p>Sorry, we could not load this course.</p>
+}
+else
+{
+    <div class="spinner-border"></div>
 }

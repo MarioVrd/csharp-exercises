@@ -30,8 +30,7 @@ namespace EFTask.Web.Pages
             }
             catch (Exception)
             {
-
-                throw;
+                // Display error
             }
         }
     }

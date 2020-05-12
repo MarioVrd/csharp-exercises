@@ -2,11 +2,7 @@
 @inherits StudentDetailsBase
 @inject NavigationManager NavigationManager
 
-@if (Student == null)
-{
-    <div class="spinner-border"></div>
-}
-else
+@if (Student != null)
 {
     <h3>@Student.Ime @Student.Prezime</h3>
     <hr />
@@ -19,4 +15,12 @@ else
     </ul>
 
     <button @onclick="@(() => NavigationManager.NavigateTo($"students/{Id}/edit"))" class="btn btn-primary btn-block">Edit Student</button>
+}
+else if (FetchSuccess == false)
+{
+    <p>Sorry, we could not load this student.</p>
+}
+else
+{
+    <div class="spinner-border"></div>
 }
