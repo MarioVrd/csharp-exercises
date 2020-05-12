@@ -4,7 +4,7 @@
 
 <header class="row mb-4">
     <h3 class="col-md-10">Popis studenata</h3>
-    <a href="students/add" class="btn btn-success col-md-2">Add Student</a>
+    <button @onclick="@(() => NavigationManager.NavigateTo("students/add"))" class="btn btn-success col-md-2">Add Student</button>
 </header>
 
 @if (students == null)
@@ -26,12 +26,7 @@ else
                 <td>@student.Ime</td>
                 <td>@student.Prezime</td>
                 <td>
-                    @{
-                        @foreach (var course in student.PredmetiStudenti)
-                        {
-                            <span>@course.IdPredmetaNavigation.Naziv</span><br />
-                        }
-                }
+                    <button @onclick="@(() => NavigationManager.NavigateTo($"students/{student.Id}/details"))" class="btn btn-outline-info">View Enrolled (@student.PredmetiStudenti.Count)</button>
                 </td>
                 <td>
                     <button @onclick="@(() => NavigationManager.NavigateTo($"students/{student.Id}/edit"))" class="btn btn-primary">Edit</button>

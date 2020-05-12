@@ -12,11 +12,22 @@ namespace EFTask.Web.Pages
     {
         [Inject]
         public IStudentiService StudentiService { get; set; }
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
 
         public Studenti student = new Studenti();
         protected async Task CreateStudent()
         {
-            var response = await StudentiService.AddStudent(student);
+            try
+            {
+                await StudentiService.AddStudent(student);
+                NavigationManager.NavigateTo("/students");
+            }
+            catch (Exception)
+            {
+                // Display error
+                // Log exception
+            }
         }
 
     }

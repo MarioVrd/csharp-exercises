@@ -1,0 +1,22 @@
+﻿@page "/students/{id:int}/details"
+@inherits StudentDetailsBase
+@inject NavigationManager NavigationManager
+
+@if (Student == null)
+{
+    <div class="spinner-border"></div>
+}
+else
+{
+    <h3>@Student.Ime @Student.Prezime</h3>
+    <hr />
+    <h4>Enrolled Courses</h4>
+    <ul class="list-group mb-3">
+        @foreach (var e in Student.PredmetiStudenti)
+        {
+            <li class="list-group-item">@e.IdPredmetaNavigation.Naziv</li>
+        }
+    </ul>
+
+    <button @onclick="@(() => NavigationManager.NavigateTo($"students/{Id}/edit"))" class="btn btn-primary btn-block">Edit Student</button>
+}

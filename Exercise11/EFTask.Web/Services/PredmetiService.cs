@@ -31,7 +31,7 @@ namespace EFTask.Web.Services
 
             courses.ForEach(course =>
             {
-                var courseView = new PredmetiView { Id = course.Id, Naziv = course.Naziv, PredmetiStudenti = new HashSet<PredmetiStudentiView>() };
+                var courseView = new PredmetiView { Id = course.Id, Naziv = course.Naziv };
 
                 foreach (var e in course.PredmetiStudenti)
                 {

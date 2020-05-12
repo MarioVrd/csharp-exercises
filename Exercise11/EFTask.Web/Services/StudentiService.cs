@@ -32,7 +32,7 @@ namespace EFTask.Web.Services
             var student = await _httpClient.GetJsonAsync<Studenti>($"api/studenti/{ id }");
 
             #region Mapping Student to StudentView
-            StudentiView output = new StudentiView { Id = student.Id, Ime = student.Ime, Prezime = student.Prezime, PredmetiStudenti = new HashSet<PredmetiStudentiView>() };
+            StudentiView output = new StudentiView { Id = student.Id, Ime = student.Ime, Prezime = student.Prezime };
 
             foreach (var e in student.PredmetiStudenti)
             {
