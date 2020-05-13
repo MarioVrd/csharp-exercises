@@ -541,21 +541,21 @@ namespace Labs
 		{
 			try
 			{
-				Stream stream = File.Open("Form.dat", FileMode.Create);
+				Stream stream = File.Open($"{this.Name}.dat", FileMode.Create);
 
 				BinaryFormatter binaryFormatter = new BinaryFormatter();
 
-				FormData formData = new FormData();
-
-				formData.Width = this.Width;
-				formData.Height = this.Height;
-				formData.XPos = this.Location.X;
-				formData.YPos = this.Location.Y;
+				FormData formData = new FormData
+				{
+					Width = this.Width,
+					Height = this.Height,
+					XPos = this.Location.X,
+					YPos = this.Location.Y
+				};
 
 				binaryFormatter.Serialize(stream, formData);
 
 				stream.Close();
-
 			}
 			catch
 			{
@@ -565,9 +565,12 @@ namespace Labs
 
 		private void AppForm_Load(object sender, EventArgs e)
 		{
+			if (!File.Exists($"{this.Name}.dat"))
+				return;
+
 			try
 			{
-				Stream stream = File.Open("Form.dat", FileMode.Open);
+				Stream stream = File.Open($"{this.Name}.dat", FileMode.Open);
 
 				BinaryFormatter binaryFormatter = new BinaryFormatter();
 
@@ -578,7 +581,6 @@ namespace Labs
 				this.Location = new Point(formData.XPos, formData.YPos);
 
 				stream.Close();
-
 			}
 			catch
 			{
