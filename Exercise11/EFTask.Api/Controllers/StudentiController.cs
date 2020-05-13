@@ -160,7 +160,6 @@ namespace EFTask.Api.Controllers
             }
         }
 
-
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> DeleteStudent(int id)
         {
